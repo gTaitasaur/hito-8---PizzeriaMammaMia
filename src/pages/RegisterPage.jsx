@@ -3,13 +3,13 @@ import { useUserContext } from "../context/UserContext";
 import { Navigate } from "react-router-dom";
 
 const RegisterPage = () => {
-    const { token, register } = useUserContext(); // Accedemos a register desde el contexto
+    const { token, register } = useUserContext();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
 
-    if (token) return <Navigate to="/home" />; // Redirige si el usuario ya está autenticado
+    if (token) return <Navigate to="/home" />;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +21,6 @@ const RegisterPage = () => {
             setMessage('Las contraseñas no coinciden.');
         } else {
             try {
-                // Intentar registrar usando el método register del contexto
                 await register(email, password);
                 setMessage('Registro exitoso.');
             } catch (error) {

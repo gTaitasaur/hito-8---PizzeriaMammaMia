@@ -7,13 +7,12 @@ const Profile = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Obtener el perfil del usuario al cargar el componente
         getProfile();
     }, [getProfile]);
 
     const handleLogout = () => {
         logout();
-        navigate("/login"); // Redirige al usuario a la página de inicio de sesión
+        navigate("/login");
     };
 
     return (

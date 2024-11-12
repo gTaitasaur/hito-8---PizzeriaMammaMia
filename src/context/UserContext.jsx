@@ -3,11 +3,9 @@ import { createContext, useState, useContext, useEffect } from "react";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    // Intenta cargar el token desde localStorage al iniciar la aplicación
     const [token, setToken] = useState(() => localStorage.getItem("token"));
     const [email, setEmail] = useState(null);
 
-    // Método para realizar el login
     const login = async (email, password) => {
         try {
             const response = await fetch("http://localhost:5000/api/auth/login", {
@@ -20,7 +18,7 @@ export const UserProvider = ({ children }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem("token", data.token); // Guarda el token en localStorage
+                localStorage.setItem("token", data.token);
                 setToken(data.token);
                 setEmail(data.email);
             } else {
@@ -31,7 +29,6 @@ export const UserProvider = ({ children }) => {
         }
     };
 
-    // Método para realizar el registro
     const register = async (email, password) => {
         try {
             const response = await fetch("http://localhost:5000/api/auth/register", {
@@ -44,7 +41,7 @@ export const UserProvider = ({ children }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem("token", data.token); // Guarda el token en localStorage
+                localStorage.setItem("token", data.token);
                 setToken(data.token);
                 setEmail(data.email);
             } else {
@@ -55,7 +52,6 @@ export const UserProvider = ({ children }) => {
         }
     };
 
-    // Método para obtener el perfil del usuario autenticado
     const getProfile = async () => {
         if (!token) return;
 
@@ -69,7 +65,7 @@ export const UserProvider = ({ children }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                setEmail(data.email); // Guardar email del perfil recibido
+                setEmail(data.email);
             } else {
                 console.error("Error al obtener perfil");
             }
@@ -78,14 +74,12 @@ export const UserProvider = ({ children }) => {
         }
     };
 
-    // Método para cerrar sesión
     const logout = () => {
-        localStorage.removeItem("token"); // Elimina el token de localStorage
+        localStorage.removeItem("token");
         setToken(null);
         setEmail(null);
     };
 
-    // Ejecuta getProfile al cargar el componente si hay un token en localStorage
     useEffect(() => {
         if (token) {
             getProfile();

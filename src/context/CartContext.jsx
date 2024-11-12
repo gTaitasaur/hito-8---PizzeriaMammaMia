@@ -7,7 +7,6 @@ export const useCart = () => useContext(CartContext);
 export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
 
-    // Agrga porducto al carrito
     const addToCart = (product) => {
         setCartItems((prevItems) => {
             const existingItem = prevItems.find((item) => item.id === product.id);
@@ -23,7 +22,6 @@ export const CartProvider = ({ children }) => {
         });
     };
 
-    // Aumenta la cantidad de productos
     const incrementQuantity = (productId) => {
         setCartItems((prevItems) =>
             prevItems.map((item) =>
@@ -32,7 +30,6 @@ export const CartProvider = ({ children }) => {
         );
     };
 
-    // Quita cantidad de productos
     const decrementQuantity = (productId) => {
         setCartItems((prevItems) =>
             prevItems.map((item) =>
@@ -43,12 +40,10 @@ export const CartProvider = ({ children }) => {
         );
     };
 
-    // Vaciar el carrrito
     const clearCart = () => {
         setCartItems([]);
     };
 
-    // Valor total de la compra
     const totalAmount = cartItems.reduce(
         (total, item) => total + item.price * item.quantity,
         0
