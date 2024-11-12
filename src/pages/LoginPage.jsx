@@ -3,22 +3,30 @@ import { useUserContext } from "../context/UserContext";
 import { Navigate } from "react-router-dom";
 
 const LoginPage = () => {
-    const { token } = useUserContext();
+    const { token, login } = useUserContext(); // Accedemos a login desde el contexto
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
 
+    // Redirige a /home si el usuario ya está autenticado
     if (token) return <Navigate to="/home" />;
 
-    const loginSubmit = (e) => {
+    const loginSubmit = async (e) => {
         e.preventDefault();
+        setMessage("");  // Limpia cualquier mensaje previo
+
         if (!email || !password) {
             setMessage('Todos los campos son obligatorios.');
         } else if (password.length < 6) {
             setMessage('La contraseña debe tener al menos 6 caracteres.');
         } else {
-            setMessage('Inicio de sesión exitoso.');
-            setToken(true);
+            // Intentar iniciar sesión usando el método login del contexto
+            try {
+                await login(email, password);
+                setMessage('Inicio de sesión exitoso.');
+            } catch (error) {
+                setMessage('Error en el inicio de sesión.');
+            }
         }
     };
 

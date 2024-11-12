@@ -3,7 +3,8 @@ import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
     const { token } = useUserContext();
-    console.log("ProtectedRoute - token:", token); // Verifica el valor de token
+
+    // Si no hay token, redirige a la página de login
     return token ? children : <Navigate to="/login" />;
 };
 
