@@ -1,0 +1,34 @@
+.navDiv {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 3px solid #c28e00;
+    padding: 5px;
+    margin-bottom: 80px;
+  }
+
+span{
+    font-size: larger;
+}
+
+button {
+    background-color: #c28e00;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    display: inline-block;
+    font-size: medium;
+    gap: 10px;
+    margin: 5px;
+}
+
+.navleft{
+    display: flex;
+    gap: 10px;
+}
+
+.navright {
+    display: flex;
+    gap: 10px;
+  }
